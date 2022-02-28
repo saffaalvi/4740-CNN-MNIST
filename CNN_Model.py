@@ -1,7 +1,7 @@
 '''
-COMP-4730 Project 1: Convolutional Neural Network on MNIST Dataset
-Submitted by: Saffa Alvi, Nour ElKott, Nandini Patel
-October 22, 2021
+COMP-4740 Project 1: Convolutional Neural Network on MNIST Dataset
+Submitted by: Saffa Alvi, Nour ElKott 
+March 1, 2022 
 
 This file contains the source code for our CNN architecture and 
 shows the application of our model to the MNIST dataset.
@@ -38,24 +38,35 @@ print(X_train.shape)
 # build the model
 model = tf.keras.models.Sequential() # most common model
 
+# add l2 regularization - not used 
+# l2 = tf.keras.regularizers.l2(0.00015)
+
 # add the layers
 
 # hidden layers
-model.add(tf.keras.layers.Conv2D(64, (3,3), activation=tf.nn.relu, input_shape=(28, 28, 1)))
+model.add(tf.keras.layers.Conv2D(128, (3,3), activation=tf.nn.relu, input_shape=(28, 28, 1)))
 model.add(tf.keras.layers.MaxPooling2D((2,2)))
+# add dropout regularization
+tf.keras.layers.Dropout(0.30)
 
-model.add(tf.keras.layers.Conv2D(128, (3,3), activation=tf.nn.relu))
+model.add(tf.keras.layers.Conv2D(256, (3,3), activation=tf.nn.relu))
 model.add(tf.keras.layers.MaxPooling2D((2,2)))
+# add dropout regularization
+tf.keras.layers.Dropout(0.40)
 
 # flattens out the input layer
 model.add(tf.keras.layers.Flatten()) 
 
 # output layer
 # last dense layer must have 10 neurons as we have 10 classes
-model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax)) 
+model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax))
+# add dropout regularization
+tf.keras.layers.Dropout(0.30)
 
 # compile and fit the model
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+# add learning rate
+opt = tf.keras.optimizers.Adam(learning_rate=0.002)
+model.compile(optimizer=opt, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 model.fit(X_train, Y_train, epochs=3) # epoch is the number of passes through the entire training dataset
 
