@@ -1,7 +1,7 @@
 # Convolutional-Neural-Network
 **COMP-4740 Project 1** 
 
-_Submitted by: Saffa Alvi, Nour ElKott
+Submitted by: Saffa Alvi, Nour ElKott
 
 This repository contains the source code for a Convolutional Neural Network (CNN) Model that is applied to the MNIST dataset. In order to test this code, Tensorflow needs to be installed. <br>
 - _CNN_Model.py_ - the source code for our CNN model implementation. Tested by running `python3 CNN_Model.py`
